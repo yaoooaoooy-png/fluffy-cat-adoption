@@ -1,0 +1,49 @@
+name: Deploy 领养册 to GitHub Pages
+
+# 为什么需要这个工作流：
+# GitHub Pages 的「分支发布」只能选仓库根目录或 /docs 目录，
+# 而本应用的入口在 cat-album/ 子目录里。
+# 所以改用 Actions 方式，直接指定 cat-album 为站点根目录。
+# 以后你在 GitHub 网页上改了 cat-album/index.html 并提交，
+# 这个工作流会自动重新部署，链接不变。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cat-album/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 取出仓库内容
+        uses: actions/checkout@v4
+
+      - name: 配置 Pages（首次运行会自动开启）
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: 打包站点（取 cat-album 目录）
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: cat-album
+
+      - name: 发布
+        id: deployment
+        uses: actions/deploy-pages@v4
