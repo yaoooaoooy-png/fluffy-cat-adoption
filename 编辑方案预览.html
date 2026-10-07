@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>编辑方式 · 三个方案效果图</title>
+<style>
+  :root{
+    --paper:#EFE9DE; --ink:#1B2A3D; --ink2:#5A6B80; --line:#D8CFC0;
+    --navy:#0A2338; --navy2:#081C2C; --cream:#F6F1E7; --brick:#AE3423;
+    --brick-lite:#D86A52; --dimw:rgba(255,255,255,.44);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:system-ui,-apple-system,'Microsoft YaHei','PingFang SC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:34px 22px 60px;
+  }
+  .hand{font-family:Georgia,'Songti SC','Source Han Serif SC',SimSun,serif}
+
+  header{max-width:1420px;margin:0 auto 26px}
+  header h1{
+    font-family:Georgia,'Songti SC','Source Han Serif SC',SimSun,serif;
+    font-size:30px;font-weight:400;letter-spacing:.03em;margin:0 0 10px;
+  }
+  header p{margin:0;font-size:13.5px;line-height:1.85;color:var(--ink2);max-width:900px}
+  header .tag{
+    display:inline-block;margin-top:14px;padding:7px 13px;border-radius:999px;
+    background:#E2D9C8;color:#43566D;font-size:12px;letter-spacing:.03em;
+  }
+
+  .board{
+    max-width:1420px;margin:0 auto;
+    display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:flex-start;
+  }
+  figure{margin:0;width:430px}
+  .phone{
+    width:430px;height:834px;border-radius:30px;overflow:hidden;
+    border:1px solid #2B405A;background:#08192C;
+    box-shadow:0 22px 54px rgba(24,32,44,.34);
+    position:relative;
+  }
+  figcaption{padding:16px 2px 0}
+  .pill{
+    display:inline-block;padding:5px 11px;border-radius:999px;
+    font-size:11.5px;letter-spacing:.05em;margin-bottom:9px;
+  }
+  .pill.a{background:#DCE9DC;color:#2F5B36}
+  .pill.b{background:#E3E0F0;color:#403C6B}
+  .pill.c{background:#F2E2D6;color:#7A4324}
+  figcaption h2{
+    font-family:Georgia,'Songti SC','Source Han Serif SC',SimSun,serif;
+    font-size:19px;font-weight:400;margin:0 0 8px;letter-spacing:.03em;
+  }
+  figcaption p{margin:0 0 7px;font-size:12.5px;line-height:1.8;color:var(--ink2)}
+  figcaption b{color:#2E3F55;font-weight:600}
+  figcaption .price{color:#7A4324}
+
+  /* ============ 手机屏内部：1:1 复刻应用 ============ */
+  .screen{
+    position:relative;width:430px;height:834px;overflow:hidden;
+    background:
+      radial-gradient(circle at 12% 16%,rgba(255,255,255,.10),transparent 3px),
+      radial-gradient(circle at 78% 9%,rgba(255,255,255,.08),transparent 2.5px),
+      radial-gradient(circle at 88% 42%,rgba(255,255,255,.07),transparent 3px),
+      radial-gradient(circle at 22% 62%,rgba(255,255,255,.06),transparent 2px),
+      radial-gradient(circle at 64% 78%,rgba(255,255,255,.07),transparent 3px),
+      linear-gradient(180deg,#0A2338 0%,#091F33 46%,#081C2C 100%);
+    color:#fff;
+  }
+  .home{padding:16px 18px 0}
+  .t-cover{
+    font-family:Georgia,'Songti SC','Source Han Serif SC',SimSun,serif;
+    font-size:44px;line-height:1.05;letter-spacing:.045em;text-align:center;
+    margin:6px 0 4px;color:#EFE8DF;text-shadow:0 4px 14px rgba(0,0,0,.5);
+  }
+  .t-sub{text-align:center;font-size:11.5px;color:var(--dimw);letter-spacing:.06em;margin-bottom:16px}
+  .intro{font-size:12px;line-height:1.95;color:rgba(255,255,255,.66);margin:0 0 16px}
+  .listhead{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 11px}
+  .listhead span:first-child{font-size:14px;letter-spacing:.05em}
+  .listhead span:last-child{font-size:10.5px;color:var(--dimw)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .pc{
+    background:#16304C;border-radius:13px;padding:8px 10px 11px;
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+  }
+  .pc .ph{
+    height:74px;border-radius:9px;margin-bottom:9px;
+    background:rgba(255,255,255,.05);
+    display:flex;align-items:center;justify-content:center;
+    color:rgba(255,255,255,.24);font-size:10.5px;
+  }
+  .pc .nm{
+    font-family:Georgia,'Songti SC','Source Han Serif SC',SimSun,serif;
+    font-size:18px;letter-spacing:.03em;color:#F4EADB;
+  }
+  .pc .ag{font-size:10.5px;color:var(--dimw);margin-top:3px}
+  .pc .tg{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+  .pc .tg i{
+    font-style:normal;font-size:9.5px;padding:3px 7px;border-radius:7px;
+    background:rgba(255,255,255,.07);color:rgba(255,255,255,.62);
+  }
+
+  /* 压暗 */
+  .dim{position:absolute;inset:0;background:rgba(3,15,29,.34)}
+  /* 定位环 */
+  .ring{
+    position:absolute;border-radius:10px;
+    box-shadow:0 0 0 2px rgba(216,106,82,.95),0 0 0 7px rgba(174,52,35,.24);
+  }
+  /* 编辑清单抽屉 */
+  .drawer{
+    position:absolute;top:0;right:0;bottom:0;width:236px;
+    background:rgba(9,26,48,.972);border-left:1px solid rgba(255,255,255,.10);
+    box-shadow:-14px 0 34px rgba(0,0,0,.42);
+  }
+  .dhead{
+    height:50px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 12px 0 14px;border-bottom:1px solid rgba(255,255,255,.09);
+    font-size:12.5px;color:rgba(234,242,250,.92);letter-spacing:.06em;
+  }
+  .dhead .x{
+    width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.16);
+    display:flex;align-items:center;justify-content:center;
+    color:rgba(255,255,255,.66);font-size:14px;
+  }
+  .dsec{
+    padding:12px 14px 7px;font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.42);
+  }
+  .drow{
+    display:flex;align-items:center;gap:9px;padding:9px 14px;
+    font-size:12.5px;color:rgba(234,242,250,.90);
+  }
+  .drow i.d{width:6px;height:6px;border-radius:50%;background:rgba(234,242,250,.34);flex:0 0 auto}
+  .drow.cur{background:rgba(174,52,35,.16)}
+  .drow.cur i.d{background:var(--brick-lite)}
+  /* 抽屉里就地展开的编辑格 */
+  .dexp{padding:4px 12px 12px}
+  .dexp .lb{font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.48);margin:0 0 6px}
+  .dexp .bx{
+    border:1px solid rgba(216,106,82,.85);border-radius:10px;
+    background:rgba(255,255,255,.05);padding:9px 10px;
+    font-size:13px;color:#F2F6FB;line-height:1.5;
+    box-shadow:0 0 0 3px rgba(174,52,35,.16);
+  }
+  .dexp .hint{margin-top:7px;font-size:10px;color:rgba(255,255,255,.40);display:flex;justify-content:space-between}
+  .caret{
+    display:inline-block;width:1.5px;height:14px;background:#F2F6FB;
+    vertical-align:-2px;margin-left:1px;animation:bl 1.05s steps(1,end) infinite;
+  }
+  @keyframes bl{0%,49%{opacity:1}50%,100%{opacity:0}}
+
+  /* 工具栏 */
+  .bar{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:9px 10px 11px;
+    background:linear-gradient(180deg,rgba(6,20,36,.94),rgba(4,15,28,.99));
+    border-top:1px solid rgba(255,255,255,.10);
+  }
+  .bhint{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+  .bhint span{font-size:10.5px;letter-spacing:.04em;color:rgba(255,255,255,.46)}
+  .bhint .pw{
+    padding:5px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.20);
+    background:rgba(255,255,255,.06);color:rgba(255,255,255,.74);font-size:10.5px;
+  }
+  .crow{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    margin-bottom:8px;padding:6px 9px;border-radius:10px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
+  }
+  .crow span{font-size:10.5px;color:rgba(255,255,255,.62)}
+  .crow b{
+    font-weight:400;font-size:10.5px;padding:5px 11px;border-radius:8px;
+    background:rgba(174,52,35,.22);border:1px solid rgba(216,106,82,.5);color:#F0C9BC;
+  }
+  .step{
+    display:flex;align-items:center;gap:8px;margin-bottom:8px;
+    padding:5px 8px;border-radius:10px;background:rgba(255,255,255,.04);
+    border:1px dashed rgba(255,255,255,.18);
+  }
+  .step b{
+    flex:1;text-align:center;font-weight:400;font-size:11px;color:rgba(255,255,255,.78);
+  }
+  .step u{
+    text-decoration:none;font-size:11px;padding:6px 10px;border-radius:8px;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+    color:#EAF2FA;
+  }
+  .step em{font-style:normal;font-size:9.5px;color:rgba(255,255,255,.40);letter-spacing:.06em}
+  .brow{display:flex;gap:7px;overflow:hidden}
+  .brow button{
+    flex:1 0 auto;min-width:70px;white-space:nowrap;padding:9px 10px;border-radius:10px;
+    font-size:12.5px;letter-spacing:.04em;border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.05);color:#EAF2FA;
+  }
+  .brow button.primary{background:var(--brick);border-color:transparent;color:#fff}
+
+  /* ============ 方案 B：全屏表单 ============ */
+  .bhead{
+    height:56px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 16px;border-bottom:1px solid rgba(255,255,255,.09);
+    font-size:14px;letter-spacing:.05em;color:#F2F6FB;
+  }
+  .bhead em{
+    font-style:normal;font-size:12px;color:rgba(255,255,255,.66);
+    padding:7px 13px;border-radius:9px;border:1px solid rgba(255,255,255,.18);
+  }
+  .tabs{
+    display:flex;gap:0;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.09);
+    padding:0 6px;background:rgba(255,255,255,.02);
+  }
+  .tabs span{
+    flex:1;text-align:center;padding:13px 2px 12px;font-size:11.5px;
+    color:rgba(255,255,255,.52);white-space:nowrap;
+    border-bottom:2px solid transparent;
+  }
+  .tabs span.on{color:#F6F1E7;border-bottom-color:var(--brick)}
+  .form{padding:14px 16px 0}
+  .frow{margin-bottom:13px}
+  .fl{display:block;font-size:10.5px;letter-spacing:.10em;color:rgba(255,255,255,.46);margin-bottom:6px}
+  .fv{
+    display:block;padding:11px 12px;border-radius:11px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
+    font-size:13px;line-height:1.6;color:#EAF2FA;
+  }
+  .fv.tall{line-height:1.8;font-size:12.5px;color:rgba(255,255,255,.86)}
+  .fv.on{border-color:rgba(216,106,82,.9);box-shadow:0 0 0 3px rgba(174,52,35,.16)}
+  .bfoot{
+    position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;
+    padding:11px 16px 15px;
+    background:linear-gradient(180deg,rgba(6,20,36,.9),rgba(4,15,28,.99));
+    border-top:1px solid rgba(255,255,255,.10);
+  }
+  .bfoot button{
+    flex:1 0 auto;padding:12px 12px;border-radius:11px;font-size:13px;letter-spacing:.04em;
+    border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#EAF2FA;
+  }
+  .bfoot button.primary{flex:1.5;background:var(--brick);border-color:transparent;color:#fff}
+
+  /* ============ 对比表 ============ */
+  .cmp{max-width:1420px;margin:54px auto 0}
+  .cmp h2{
+    font-family:Georgia,'Songti SC','Source Han Serif SC',SimSun,serif;
+    font-size:23px;font-weight:400;margin:0 0 16px;letter-spacing:.03em;
+  }
+  table{width:100%;border-collapse:collapse;background:#F7F3EB;border-radius:14px;overflow:hidden}
+  th,td{padding:13px 14px;text-align:left;vertical-align:top;font-size:12.5px;line-height:1.75;border-bottom:1px solid var(--line)}
+  th{background:#E4DBCB;font-weight:600;letter-spacing:.04em;color:#33465C;white-space:nowrap}
+  td:first-child{font-weight:600;color:#26374B;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  .yes{color:#2F6B3C}
+  .no{color:#8C4A22}
+  .rec{
+    max-width:1420px;margin:30px auto 0;padding:20px 22px;border-radius:14px;
+    background:#F7F3EB;border:1px solid var(--line);
+  }
+  .rec h2{margin:0 0 10px;font-size:17px;letter-spacing:.03em}
+  .rec p{margin:0 0 9px;font-size:13px;line-height:1.85;color:#41536B}
+  .rec p:last-child{margin-bottom:0}
+  .rec b{color:#22384F}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>编辑方式 · 三个方案效果图</h1>
+  <p>下面三台手机都是 1:1 画的<b>示意图</b>，说明三件事：改一项要点几步、页面会不会动、你看不看得见正在改的那句。真实实现里的字号间距以实际页面为准。</p>
+  <div class="tag">和前面两个问题分开：换编辑方式不影响已修好的字体与联系弹窗。</div>
+</header>
+
+<div class="board">
+
+  <!-- ================= 方案 A ================= -->
+  <figure>
+    <div class="phone">
+      <div class="screen">
+        <div class="home">
+          <div class="t-cover">毛茸茸小屋</div>
+          <div class="t-sub">待领养猫咪图鉴 · 2026</div>
+          <p class="intro">这些猫猫是在寺里长大的。听着晨钟暮鼓、云板三通，在殿前台阶上晒太阳，在香客脚边打转。如今，它们要走进人间烟火里去了。</p>
+          <div class="listhead"><span>正在找家的它们</span><span>待领养 5 只</span></div>
+          <div class="grid2">
+            <div class="pc"><div class="ph">照片待补</div><div class="nm">小橘</div><div class="ag">约 8 个月</div><div class="tg"><i>吃货</i><i>活泼</i></div></div>
+            <div class="pc"><div class="ph">照片待补</div><div class="nm">芝麻</div><div class="ag">约 1 岁</div><div class="tg"><i>安静</i><i>粘人</i></div></div>
+            <div class="pc"><div class="ph">照片待补</div><div class="nm">奶盖</div><div class="ag">约 6 个月</div><div class="tg"><i>胆小</i><i>温柔</i></div></div>
+            <div class="pc"><div class="ph">照片待补</div><div class="nm">小虎</div><div class="ag">约 2 岁</div><div class="tg"><i>机灵</i><i>亲人</i></div></div>
+          </div>
+        </div>
+        <div class="dim"></div>
+        <aside class="drawer">
+          <div class="dhead"><b>编辑清单</b><span class="x">&times;</span></div>
+          <div class="dsec">首页</div>
+          <div class="dexp">
+            <div class="lb">首页标题</div>
+            <div class="bx">毛茸茸小屋<span class="caret"></span></div>
+            <div class="hint"><span>改完点这一行以外的任意处即收起</span><span>收起 ▲</span></div>
+          </div>
+          <div class="drow"><i class="d"></i>首页副标题</div>
+          <div class="drow"><i class="d"></i>题记</div>
+          <div class="dsec">猫咪卡片</div>
+          <div class="drow cur"><i class="d"></i>第 1 只 · 名字</div>
+          <div class="drow"><i class="d"></i>第 1 只 · 年龄</div>
+          <div class="drow"><i class="d"></i>第 1 只 · 标签</div>
+          <div class="drow"><i class="d"></i>第 1 只 · 照片</div>
+          <div class="dsec">照片墙</div>
+          <div class="drow"><i class="d"></i>第 1 张 · 照片</div>
+          <div class="drow"><i class="d"></i>第 1 张 · 小字</div>
+        </aside>
+      </div>
+    </div>
+    <figcaption>
+      <span class="pill a">页面完全不动</span>
+      <h2>方案 A · 抽屉里直接改</h2>
+      <p>右侧清单点哪一项，<b>那一行就在清单里摊开成输入框</b>，改完收起。照片项在同一行给「换图」。</p>
+      <p>它的本质是把现在这份清单从「跳转索引」改成「编辑表单」，<b>复用已有的 160 项和 5 个分组</b>，改动最小。</p>
+      <p class="price">代价：改的时候看不到页面实际排版，要退出来看效果。</p>
+    </figcaption>
+  </figure>
+
+  <!-- ================= 方案 B ================= -->
+  <figure>
+    <div class="phone">
+      <div class="screen">
+        <div class="bhead"><b>编辑内容</b><em>完成</em></div>
+        <div class="tabs">
+          <span class="on">首页</span><span>猫咪卡片</span><span>照片墙</span><span>详情档案</span><span>联系弹窗</span>
+        </div>
+        <div class="form">
+          <div class="frow"><span class="fl">首页标题</span><span class="fv on">毛茸茸小屋<span class="caret"></span></span></div>
+          <div class="frow"><span class="fl">首页副标题</span><span class="fv">待领养猫咪图鉴 · 2026</span></div>
+          <div class="frow"><span class="fl">题记</span><span class="fv tall">这些猫猫是在寺里长大的。听着晨钟暮鼓、云板三通，在殿前台阶上晒太阳，在香客脚边打转。</span></div>
+          <div class="frow"><span class="fl">列表标题</span><span class="fv">正在找家的它们</span></div>
+          <div class="frow"><span class="fl">页脚说明</span><span class="fv">点开卡片看详尽档案</span></div>
+          <div class="frow"><span class="fl">封面大标题</span><span class="fv">猫咪日常</span></div>
+        </div>
+        <div class="bfoot">
+          <button>&lsaquo; 上一组</button>
+          <button>下一组 &rsaquo;</button>
+          <button class="primary">保存并退出</button>
+        </div>
+      </div>
+    </div>
+    <figcaption>
+      <span class="pill b">像填资料表</span>
+      <h2>方案 B · 全屏表单工坊</h2>
+      <p>进编辑就整屏换成一张表单：<b>5 个分组做成 5 个页签</b>，一行一个字段，从头填到尾，页面根本不出现。</p>
+      <p>最直观，也最适合一次集中改一批；不用记「那句话在页面哪个位置」。</p>
+      <p class="price">代价：离「所见即所得」最远，改完得退出来才知道长什么样；三种里工作量最大。</p>
+    </figcaption>
+  </figure>
+
+  <!-- ================= 方案 C ================= -->
+  <figure>
+    <div class="phone">
+      <div class="screen">
+        <div class="home">
+          <div class="t-cover">毛茸茸小屋</div>
+          <div class="t-sub">待领养猫咪图鉴 · 2026</div>
+          <p class="intro">这些猫猫是在寺里长大的。听着晨钟暮鼓、云板三通，在殿前台阶上晒太阳，在香客脚边打转。如今，它们要走进人间烟火里去了。</p>
+          <div class="listhead"><span>正在找家的它们</span><span>待领养 5 只</span></div>
+          <div class="grid2">
+            <div class="pc"><div class="ph">照片待补</div><div class="nm">小橘</div><div class="ag">约 8 个月</div><div class="tg"><i>吃货</i><i>活泼</i></div></div>
+            <div class="pc"><div class="ph">照片待补</div><div class="nm">芝麻</div><div class="ag">约 1 岁</div><div class="tg"><i>安静</i><i>粘人</i></div></div>
+          </div>
+        </div>
+        <div class="dim"></div>
+        <div class="ring" style="left:88px;top:44px;width:212px;height:56px"></div>
+        <aside class="drawer">
+          <div class="dhead"><b>编辑清单</b><span class="x">&times;</span></div>
+          <div class="dsec">首页</div>
+          <div class="drow cur"><i class="d"></i>首页标题</div>
+          <div class="drow"><i class="d"></i>首页副标题</div>
+          <div class="drow"><i class="d"></i>题记</div>
+          <div class="dsec">猫咪卡片</div>
+          <div class="drow"><i class="d"></i>第 1 只 · 名字</div>
+        </aside>
+        <div class="bar">
+          <div class="bhint"><span>点文字直接改 · 点照片右下角换图</span><span class="pw">改密码</span></div>
+          <div class="crow"><span>已同步到云端 · 访客刷新就能看到</span><b>存到云端</b></div>
+          <div class="step"><u>&lsaquo; 上一项</u><b>第 3 项 / 共 160 项</b><u>下一项 &rsaquo;</u><em>新增</em></div>
+          <div class="brow">
+            <button class="primary">完成</button><button>加一只</button><button>删这只</button>
+            <button>生成新文件</button><button>复制数据</button><button>放弃改动</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption>
+      <span class="pill c">仍会滚动跳转</span>
+      <h2>方案 C · 只加「上一项 / 下一项」</h2>
+      <p>编辑方式一点不改，只在底栏加一条翻项条：<b>点一下跳到上一处或下一处可改项</b>，并告诉你现在第几项、共几项。</p>
+      <p>改动最小，还能顺手看出「一共要改几处」。</p>
+      <p class="price">代价：页面照样会跳、会滚——只是不用再去清单里找了；底栏本来已有三行，再加一行会显得挤。</p>
+    </figcaption>
+  </figure>
+
+</div>
+
+<section class="cmp">
+  <h2>三个方案并排比</h2>
+  <table>
+    <tr>
+      <th></th><th>它是什么</th><th>优点</th><th>代价</th><th>页面还滚不滚</th><th>工作量</th>
+    </tr>
+    <tr>
+      <td>方案 A<br>抽屉里直接改</td>
+      <td>右侧清单的每一行，点开就地变成输入框；照片项给「换图」。</td>
+      <td class="yes">不动页面、不跳转；一屏内看得见正在改哪句；复用现有清单，风险最低。</td>
+      <td>编辑时看不到页面排版。</td>
+      <td class="yes">不滚</td>
+      <td>小</td>
+    </tr>
+    <tr>
+      <td>方案 B<br>全屏表单工坊</td>
+      <td>编辑时整屏是一张表单，5 个分组做成 5 个页签，一行一个字段。</td>
+      <td class="yes">最直观；适合一次集中改一大批；不用在页面里找位置。</td>
+      <td>看不到排版效果；和现有就地编辑是两套界面。</td>
+      <td class="yes">不滚</td>
+      <td>大</td>
+    </tr>
+    <tr>
+      <td>方案 C<br>只加翻项按钮</td>
+      <td>保留现在的就地编辑，底栏加「上一项 / 下一项」和项数进度。</td>
+      <td class="yes">改动最小；能看出总共要改几处。</td>
+      <td class="no">页面照样跳、照样滚，只是省了去清单里翻找。</td>
+      <td class="no">照旧滚</td>
+      <td>很小</td>
+    </tr>
+  </table>
+</section>
+
+<section class="rec">
+  <h2>我的建议</h2>
+  <p><b>选 A。</b>你的抱怨是「改一项要来回滚着找那一句」，A 直接把这个动作去掉——不用滚、不用跳，改动还落在现有清单上，不用动已经验过的页面结构。</p>
+  <p>B 更接近「填表格」的爽快感，但要重新做一套界面、也丢掉了所见即所得，为同样一件事多花不少功夫。C 只省了「翻找」，没解决「滚动」。</p>
+  <p>三种都可以后面再换：A 和 C 都在现有结构上加东西，改主意不会白做。</p>
+</section>
+
+</body>
+</html>

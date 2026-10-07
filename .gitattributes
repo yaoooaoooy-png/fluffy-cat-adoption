@@ -1,0 +1,4 @@
+# 换行符策略：一律不做任何转换
+# index.html 是纯 LF（项目硬约束：CRLF 必须为 0）。
+# 若让 git 参与换行转换，在别的机器 checkout 回来会变成 CRLF，破坏该约束。
+* -text

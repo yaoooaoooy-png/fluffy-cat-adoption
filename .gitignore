@@ -1,0 +1,10 @@
+# ===== 开发临时目录（约 695 MB，绝不上传）=====
+.scratch/
+
+# ===== WorkBuddy 工具标记文件（155 字节，含本机绝对路径）=====
+*.genie
+
+# ===== 系统垃圾 =====
+Thumbs.db
+desktop.ini
+.DS_Store
